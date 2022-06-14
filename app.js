@@ -20,6 +20,11 @@ app.get('/product', (req, res) => {
     ])
 })
 
+app.get('/rahmath', (req, res) => {
+    res.send('<h1>This is rahmath website</h1>')
+})
+
+
 
 app.listen(port, () => {
     console.log(`demo app is used,port:${port}`);
