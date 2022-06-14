@@ -1,0 +1,62 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  buildAndTest:
+    name: CI Pipeline
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['14.x']
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Initialize Node.js
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Install project dependencies, test and build
+      - name: Install dependencies
+        run: npm install
+      - name: Run build
+        run: npm build
+
+  deploy:
+    name: CD Pipeline
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+        node-version: ['14.x']
+        appname: ['node_practice-aws-ec2']
+        deploy-group: ['express-app-group']
+        # s3-bucket: ['aws-codedeploy-deployments-infowebso']
+        # s3-filename: ['main-aws-codedeploy-${{ github.sha }}']
+
+    needs: buildAndTest
+    steps:
+      - uses: actions/checkout@v2
+
+      # Initialize Node.js
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Install project dependencies and build
+      - name: Install dependencies
+        run: npm install
+      - name: Run build
+        run: npm build
+
+     
