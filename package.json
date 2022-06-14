@@ -1,0 +1,7 @@
+{
+    "name": "node-practice-aws-ec2",
+    "version": "0.0.1",
+    "dependencies": {
+        "express": "4.7.1"
+    }
+}
