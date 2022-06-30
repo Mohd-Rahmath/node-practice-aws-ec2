@@ -3,6 +3,12 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/express-app
+permissions:
+- object: /
+   pattern: "**"
+   owner: root
+   group: root
+
 hooks:
   ApplicationStop:
     - location: scripts/application_stop.sh
@@ -17,4 +23,4 @@ hooks:
       timeout: 300
       runas: root
       
-      
+    
